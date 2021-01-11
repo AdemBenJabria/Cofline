@@ -1,0 +1,26 @@
+{
+    "name": "cofline/blog",
+    "description": "blog",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cofline",
+            "email": "ugo@cofline.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Cofline\\Blog\\": "src/"
+        },
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Cofline\\Blog\\BlogServiceProvider"
+                ]
+            }
+        }
+    }
+}
