@@ -1,5 +1,5 @@
 <?php
 
 Route::get('blog',function(){
-    return 'blog';
+    return view('Cofline::test');
 });

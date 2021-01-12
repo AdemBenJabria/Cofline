@@ -8,8 +8,8 @@ class BlogServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        //$this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-        $this->loadViewsFrom(__DIR__ . '/views','test');
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+        $this->loadViewsFrom(__DIR__ . '/views','Cofline');
     }
 
     public function register()
