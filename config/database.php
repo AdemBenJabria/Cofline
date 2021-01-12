@@ -52,8 +52,8 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'charset' => 'utf8', //J'ai retiré mb4 (stockage des emojis pour résoudre le problème des migrations)
+            'collation' => 'utf8_unicode_ci', //same ^ 
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
