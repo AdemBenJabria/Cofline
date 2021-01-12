@@ -9,17 +9,22 @@ class Post extends Model
 {
     use HasFactory;
 
-    // Disable Laravel's mass assignment protection
+    // Allowing Mass Assignment
     protected $guarded = [];
 
     /**
      * Relation with Category, one post belongs to a category
      */
-    public function Category()
+    public function category()
     {
         return $this->belongsTo('App\Category');
     }
-    
+
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 
 
 }

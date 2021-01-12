@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    // Disable Laravel's mass assignment protection
+
+    // Allowing Mass Assignment
     protected $guarded = [];
 
     /**
@@ -16,7 +17,7 @@ class Category extends Model
      */
     public function posts()
     {
-        return $this-> hasMany('App\Post');
+        return $this->hasMany('App\Post');
     }
 
 }
