@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase as FrameworkTestCase;
 
 class MathTest extends FrameworkTestCase
 {
-
+    
     public function testDouble()
     {
         $this->assertEquals(4, Math::double(2));
