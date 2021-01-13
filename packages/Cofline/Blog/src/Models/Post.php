@@ -12,6 +12,9 @@ class Post extends Model
     // Allowing Mass Assignment
     protected $guarded = [];
 
+    // Set mass-assignable fields
+    protected $fillable = ['title', 'content', 'category'];
+    
     /**
      * Relation with Category, one post belongs to a category
      */
