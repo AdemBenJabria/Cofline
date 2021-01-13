@@ -10,10 +10,15 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "phpunit/phpunit": "10.0.x-dev"
+    },
     "autoload": {
         "psr-4": {
-            "Cofline\\Blog\\": "src/"
+            "Cofline\\Blog\\": "src/",
+            "Cofline\\Blog\\database\\Factories\\":"database/Factories",
+            "Cofline\\Blog\\database\\Testing\\":"database/Testing",
+            "Cofline\\Blog\\Tests\\": "Tests/"
         },
         "extra": {
             "laravel": {
