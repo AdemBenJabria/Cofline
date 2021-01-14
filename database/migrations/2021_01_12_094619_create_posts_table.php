@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('user_id')->constrained('post_users');
+            //$table->foreignId('user_id')->constrained('post_users');
             $table->string('title');
             $table->text('content');
             $table->boolean('is_published')->default(false);

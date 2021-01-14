@@ -2,57 +2,55 @@
 
 namespace Cofline\Blog\Http\Controllers;
 
+
 use App\Http\Controllers\Controller;
+use Cofline\Blog\Http\Requests\PostRequest;
+use Cofline\Blog\Models\Post;
 use Facade\FlareClient\View;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function test()
-    {
-        return view('Cofline/Blog::Layout.Layout');
-    }
 
     public function index()
     {
         return view('Cofline/Blog::Layout.void');
     }
 
-    /**public function store(Request $request)
+    public function create(PostRequest $request)
     {
-        // Validate posted form data
-        $validated = $request->validate([
-            'title' => 'required|string|unique:posts|min:5|max:100',
-            'content' => 'required|string|min:5|max:2000',
-            'category' => 'required|string|max:30'
-        ]);
-
-        // Create and save post with validated data
-        $post = Post::create($validated);
-
-        // Redirect the user to the created post with a success notification
-        return redirect(route('posts.show', [$post->slug]))->with('notification', 'Post created!');
+        $post = Post::create($request->validated());
     }
-    */
-    public function create()
+
+    public function update(PostRequest $request, int $id)
     {
-        //show create post form
-        return view('Cofline/Blog::posts.create');
+        if ($request->validated()) {
+            $post = Post::where('id', $id)->first();
+            if ($post) {
+                $post->category_id = $request->category_id;
+                $post->title = $request->title;
+                $post->content = $request->content;
+                $post->is_published = $request->is_published;
+                return $post->save();
+            }
+        }
     }
+    public function destroy(int $id)
+    {
+        $request = Post::where('id', $id)->first()->delete();
+        //$request->delete();
+
+        //flash()->success('Post deleted.');
+
+        //return redirect()->route('posts.index');
+    }
+
 
     public function show()
     {
         //
     }
 
-    public function update()
-    {
-        //
-    }
-
-    public function destroy()
-    {
-        //
-    }
 
     public function edit()
     {

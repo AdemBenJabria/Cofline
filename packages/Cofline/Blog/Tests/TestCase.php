@@ -2,13 +2,23 @@
 
 namespace Cofline\Blog\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Tests\TestCase as TestsTestCase;
 
-abstract class TestCase extends BaseTestCase
+class TestCase extends TestsTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-        // additional setup
-    }
+  public function setUp(): void
+  {
+    parent::setUp();
+    // additional setup
+  }
+
+  protected function getPackageProviders($app)
+  {
+    
+  }
+
+  protected function getEnvironmentSetUp($app)
+  {
+    // perform environment setup
+  }
 }

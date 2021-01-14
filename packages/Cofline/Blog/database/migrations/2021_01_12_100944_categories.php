@@ -15,7 +15,7 @@ class Categories extends Migration
     {
         Schema::create('caterogies', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('post_id')->constrained('post_users');
+            //$table->foreignId('post_id')->constrained('post_users');
             $table->string('name');
             $table->string('color')->nullable();
         });

@@ -4,47 +4,59 @@ namespace Tests\Feature;
 
 use App\Models\Post;
 use App\Models\User;
-use Tests\TestCase;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PostTest extends TestCase
 {
     use RefreshDatabase;
-
-    public function testIndex()
+    private $faker;
+    private $user;
+    public function setUp() :void
     {
-        $user = User::factory()->user()->create();
-
-        $post = Post::factory()->create(['author_id' => $user->id]);
-        Post::factory()->count(2)->create();
-
-        $this->get('/')
-            ->assertOk()
-            ->assertSee('Latest posts')
-            ->assertSee($post->title);
+        parent::setUp();
+        $this->faker = Factory::create('fr_FR');
+        $this->user = User::factory()->create();
     }
 
-    public function testSearch()
+    public function testCreate()
     {
-        Post::factory()->count(3)->create();
-        $post = Post::factory()->create(['title' => 'Hello']);
-
-        $this->get('/?q=Hello')
-            ->assertOk()
-            ->assertSee('1 post found')
-            ->assertSee($post->title);
-            //->assertSee(humanize_date($post->posted_at));
+        $data = array(
+            'category_id'=>8,
+            'title'=>'aTitle',
+            'content'=>'IamaContent',
+            'is_published'=>1,
+            //'created_at'=>now(),
+            //'updated_at'=>now()
+            );
+            $this->actingAs($this->user)->postJson(route('posts.create',$data));
+            $this->assertDatabaseHas('posts',$data);
+        
     }
 
-    public function testShow()
+    public function testUpdate()
     {
-        $post = Post::factory()->create();
-
-        /*$this->actingAsUser()
-            ->assertOk()
-            ->assertSee($post->content)
-            ->assertSee($post->title)
-            ->assertSee(humanize_date($post->posted_at));*/
+        $data = [
+            'id' =>  1,//$this->faker->randomDigit,
+            'category_id' => $this->faker->randomDigit,
+            'title' => $this->faker->title ,
+            'content' => $this->faker->paragraph,
+            'is_published' => 1
+            //'updated_at' => now()
+        ];
+        $response = $this->actingAs($this->user)->postJson(route('posts.update', $data['id']), $data);
+        $this->assertDatabaseHas('posts', $data);
     }
+
+    public function testDestroy()
+    {
+        $id = ['id' => 1];
+        $response = $this->actingAs($this->user)->postJson(route('posts.destroy', $id));
+
+        $this->assertDatabaseMissing('posts',  $id);
+    }
+
+    
 
 }
